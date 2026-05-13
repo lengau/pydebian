@@ -72,6 +72,16 @@ print(debian.supported_lts())    # ["bullseye"]
 | `pydebian.debhelper` | `Debian::Debhelper::*` | Build system detection and sequence resolution |
 | `pydebian.distroinfo` | `Debian::DistroInfo` | Debian/Ubuntu release info queries |
 
+## Documentation
+
+Full documentation follows the [Diátaxis](https://diataxis.fr/) framework:
+
+- **[Tutorials](docs/tutorials/index.md)** — learn pydebian step by step
+- **[How-to guides](docs/how-to/index.md)** — solve specific tasks
+- **[Reference](docs/reference/index.md)** — complete API documentation
+- **[Explanation](docs/explanation/index.md)** — architecture and design
+  decisions
+
 ## License
 
 GPL-2.0-or-later
