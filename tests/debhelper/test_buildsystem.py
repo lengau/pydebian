@@ -1,16 +1,15 @@
 """Tests for pydebian.debhelper build system detection."""
 
+
 import pytest
-from pathlib import Path
 
 from pydebian.debhelper import (
-    detect_buildsystem,
-    list_buildsystems,
-    get_compat_level,
-    get_sequence,
-    get_dh_commands,
-    BuildSystem,
     BUILD_STEPS,
+    detect_buildsystem,
+    get_compat_level,
+    get_dh_commands,
+    get_sequence,
+    list_buildsystems,
 )
 
 
@@ -49,7 +48,9 @@ class TestDetectBuildsystem:
         assert "meson" in bs.name
 
     def test_detect_cmake(self, tmp_path):
-        (tmp_path / "CMakeLists.txt").write_text("cmake_minimum_required(VERSION 3.10)\n")
+        (tmp_path / "CMakeLists.txt").write_text(
+            "cmake_minimum_required(VERSION 3.10)\n"
+        )
         bs = detect_buildsystem(tmp_path)
         assert bs is not None
         assert "cmake" in bs.name

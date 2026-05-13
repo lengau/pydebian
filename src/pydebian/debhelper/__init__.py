@@ -11,7 +11,6 @@ from pathlib import Path
 
 import perlthon
 
-
 # Build steps supported by debhelper
 BUILD_STEPS = ("configure", "build", "test", "install", "clean")
 
@@ -34,7 +33,7 @@ _BUILDSYSTEM_NAMES = (
 _DH_LOADED = False
 
 
-def _ensure_loaded():
+def _ensure_loaded() -> None:
     """Load debhelper buildsystem modules on first use."""
     global _DH_LOADED
     if not _DH_LOADED:
@@ -89,7 +88,9 @@ def list_buildsystems() -> list[BuildSystem]:
     }}""")
 
     systems = []
+    assert isinstance(result, list)
     for s in result:
+        assert isinstance(s, dict)
         systems.append(BuildSystem(
             name=str(s["name"]),
             description=str(s["description"]),
@@ -152,6 +153,7 @@ def detect_buildsystem(
     if result is None:
         return None
 
+    assert isinstance(result, dict)
     return BuildSystem(
         name=str(result["name"]),
         description=str(result["description"]),

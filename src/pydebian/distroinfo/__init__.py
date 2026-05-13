@@ -11,7 +11,6 @@ from datetime import date
 
 import perlthon
 
-
 perlthon.eval("use Debian::DistroInfo")
 
 
@@ -54,6 +53,7 @@ class _DistroInfoBase:
             f"[$_distroinfo_{self._instance_id}->{method}()]"
         )
         if result:
+            assert isinstance(result, list)
             return [str(s) for s in result]
         return []
 

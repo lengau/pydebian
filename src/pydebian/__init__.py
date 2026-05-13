@@ -1,11 +1,11 @@
 """pydebian - Python adapter for Perl's Debian:: namespace via perlthon."""
 
 from pydebian.debhelper import (
-    detect_buildsystem,
-    list_buildsystems,
-    get_sequence,
-    get_compat_level,
     BuildSystem,
+    detect_buildsystem,
+    get_compat_level,
+    get_sequence,
+    list_buildsystems,
 )
 from pydebian.distroinfo import DebianDistroInfo, UbuntuDistroInfo
 
