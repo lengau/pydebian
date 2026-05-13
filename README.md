@@ -74,13 +74,19 @@ print(debian.supported_lts())    # ["bullseye"]
 
 ## Documentation
 
-Full documentation follows the [Diátaxis](https://diataxis.fr/) framework:
+Full documentation follows the `Diátaxis <https://diataxis.fr/>`_ framework
+and is built with Sphinx:
 
-- **[Tutorials](docs/tutorials/index.md)** — learn pydebian step by step
-- **[How-to guides](docs/how-to/index.md)** — solve specific tasks
-- **[Reference](docs/reference/index.md)** — complete API documentation
-- **[Explanation](docs/explanation/index.md)** — architecture and design
+- `Tutorials <docs/tutorials/index.rst>`_ — learn pydebian step by step
+- `How-to guides <docs/how-to/index.rst>`_ — solve specific tasks
+- `Reference <docs/reference/index.rst>`_ — complete API documentation
+- `Explanation <docs/explanation/index.rst>`_ — architecture and design
   decisions
+
+To build locally::
+
+    pip install sphinx furo sphinx-design
+    sphinx-build docs docs/_build
 
 ## License
 
