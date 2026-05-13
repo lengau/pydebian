@@ -1,11 +1,12 @@
 How-to guides
 =============
 
-If you have a specific goal but are already familiar with pydebian, these
-how-to guides give you practical steps for common operations.
+If you've already got pydebian sorted and you know the basics, these how-to
+guides give you practical steps for common operations. No fluff, just the
+stuff you need.
 
-They assume you have a working installation. See
-:doc:`../tutorials/getting-started` if you need to set up first.
+They assume you have a working installation. If not, check
+:doc:`../tutorials/getting-started` first.
 
 .. toctree::
    :maxdepth: 1

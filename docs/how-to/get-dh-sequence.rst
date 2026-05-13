@@ -49,4 +49,5 @@ Requirements
 - A configured debhelper compat level (see :doc:`check-compat-level`)
 
 If ``dh_assistant`` is unavailable or fails, the function falls back to
-listing all ``dh_*`` executables found in ``/usr/bin``.
+listing all ``dh_*`` executables found in ``/usr/bin``. Not ideal, but it
+keeps things moving.

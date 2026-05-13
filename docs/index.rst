@@ -1,10 +1,10 @@
 pydebian
 ========
 
-pydebian gives you native Python access to debhelper build system detection and
-Debian/Ubuntu release metadata. It calls directly into the Perl implementations
+pydebian gives you lekker Python access to debhelper build system detection and
+Debian/Ubuntu release metadata. It calls straight into the Perl implementations
 via `perlthon <https://github.com/lengau/perlthon>`_, so you get identical
-behaviour to the upstream tools.
+behaviour to the upstream tools — no funny business, no reimplementation drift.
 
 ---------
 
@@ -15,27 +15,27 @@ In this documentation
 
    .. grid-item:: :doc:`tutorials/index`
 
-      **Start here** if you are new to pydebian.
+      **Start here** if you're new to pydebian.
 
-      Step-by-step guides that help you get hands-on experience.
+      Hands-on tutorials to get you sorted, step by step.
 
    .. grid-item:: :doc:`how-to/index`
 
       **Step-by-step instructions** for achieving specific outcomes.
 
-      They help you solve real-world problems.
+      Practical guides to help you get things done.
 
    .. grid-item:: :doc:`reference/index`
 
       **Technical descriptions** of every public class and function.
 
-      They describe how things work.
+      The full details on how things work under the hood.
 
    .. grid-item:: :doc:`explanation/index`
 
       **Discussion and background** about key topics.
 
-      They provide context for understanding design decisions.
+      Context for understanding the design decisions we made.
 
 .. toctree::
    :hidden:
@@ -49,4 +49,5 @@ In this documentation
 Project and community
 ---------------------
 
-pydebian is open source (GPL-2.0-or-later). Contributions welcome.
+pydebian is open source (GPL-2.0-or-later). Contributions are welcome — come
+help us make this thing lekker.

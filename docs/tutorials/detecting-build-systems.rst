@@ -1,8 +1,8 @@
 Detect build systems
 ====================
 
-In this tutorial you will explore how debhelper's build system detection works
-and how pydebian exposes it. You will list all available build systems, run
+In this tutorial you'll explore how debhelper's build system detection works
+and how pydebian exposes it. You'll list all available build systems, run
 detection with different build steps, and understand the priority order.
 
 How detection works
@@ -10,8 +10,9 @@ How detection works
 
 Debhelper maintains a registry of build system classes. When you call
 ``detect_buildsystem()``, pydebian iterates through them in priority order.
-Each class is asked whether it can handle the source tree (via
-``check_auto_buildable()``). The first positive answer wins.
+Each class gets asked whether it can handle the source tree (via
+``check_auto_buildable()``). The first one that says "ja, I can handle this"
+wins.
 
 List all build systems
 ----------------------
@@ -27,7 +28,8 @@ Run the following to see every build system debhelper knows about:
        print(f"  {bs.name}: {bs.description}{gen}")
 
 Generator build systems (like ``cmake`` and ``meson``) produce files for
-another build system (like ``makefile`` or ``ninja``).
+another build system (like ``makefile`` or ``ninja``). They're the okes that
+set things up for the next ou to do the actual building.
 
 Detect by build step
 --------------------
@@ -51,8 +53,8 @@ Understand priority order
 -------------------------
 
 The priority order resolves ambiguity. A project with both ``CMakeLists.txt``
-and a ``Makefile`` is detected as ``cmake`` because cmake is tried before
-makefile.
+and a ``Makefile`` gets detected as ``cmake`` because cmake is tried before
+makefile. First come, first served.
 
 The detection order is:
 
@@ -71,8 +73,9 @@ The detection order is:
 .. note::
 
    This is the order the classes are *tried*. Each class has its own detection
-   logic. A ``Makefile``-only project will not be detected as ``autoconf``
-   because the autoconf class checks for ``configure`` scripts.
+   logic. A ``Makefile``-only project won't be detected as ``autoconf``
+   because the autoconf class checks for ``configure`` scripts — it's not
+   going to just wing it.
 
 Create test cases
 -----------------

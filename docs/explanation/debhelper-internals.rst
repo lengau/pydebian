@@ -2,8 +2,8 @@ Debhelper internals
 ===================
 
 This page explains how debhelper's build system detection and command
-sequencing work at a conceptual level. Understanding this helps you interpret
-what pydebian is wrapping.
+sequencing work at a conceptual level. Understanding this helps you make sense
+of what pydebian is wrapping under the hood.
 
 Build system detection
 ----------------------
@@ -60,21 +60,21 @@ Generator build systems
 ~~~~~~~~~~~~~~~~~~~~~~~
 
 Some build systems are "generators" — they produce files for another build
-system. For example:
+system. Think of them as the okes that set the table:
 
 - ``cmake`` generates ``Makefile``\s (targets the ``makefile`` build system).
 - ``meson`` generates ``build.ninja`` (targets the ``ninja`` build system).
 
 When detection finds a generator, debhelper checks at later steps whether the
 generated files exist (for example after ``configure`` runs, a ``Makefile`` or
-``build.ninja`` exists in the build directory).
+``build.ninja`` appears in the build directory).
 
 Priority order and conflicts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The priority order resolves ambiguity. A CMake project typically has both
 ``CMakeLists.txt`` and (after configure) a ``Makefile``. Because ``cmake`` is
-checked before ``makefile``, the correct build system is selected.
+checked before ``makefile``, the correct build system gets picked.
 
 The dh sequencer
 ----------------
@@ -118,7 +118,7 @@ architecture-independent packages.
 Addons
 ~~~~~~
 
-Addons modify sequences by inserting, removing, or replacing commands. They are
+Addons modify sequences by inserting, removing, or replacing commands. They're
 activated via:
 
 - ``dh $@ --with addon1,addon2`` in ``debian/rules``
@@ -140,7 +140,8 @@ debhelper's internal state:
    dh_assistant which-build-system
 
 pydebian uses ``dh_assistant list-commands`` in ``get_sequence()`` to retrieve
-the command list without parsing debhelper's Perl source.
+the command list without parsing debhelper's Perl source. Much cleaner than
+trying to reverse-engineer the internals.
 
 Compat levels
 -------------

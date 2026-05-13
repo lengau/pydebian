@@ -4,6 +4,7 @@ Architecture
 pydebian is a Python adapter library that delegates to Perl's ``Debian::``
 namespace via `perlthon <https://github.com/lengau/perlthon>`_ — a Rust/PyO3
 extension that embeds a Perl interpreter directly in the Python process.
+Basically, Perl lives inside your Python — like a braai inside a lapa.
 
 Layer diagram
 -------------
@@ -80,15 +81,15 @@ Method calls are dispatched via eval:
 debhelper
 ~~~~~~~~~
 
-Debhelper is more complex. ``Debian::Debhelper::Dh_Lib`` (which
+Debhelper is more of a mission. ``Debian::Debhelper::Dh_Lib`` (which
 ``Dh_Buildsystems.pm`` imports) checks for ``debian/control`` at load time and
-dies if it is missing. This makes ``use Debian::Debhelper::Dh_Buildsystems``
+dies if it's not there. This makes ``use Debian::Debhelper::Dh_Buildsystems``
 impossible from arbitrary directories.
 
 **Workaround:** pydebian loads only the base class
 ``Debian::Debhelper::Buildsystem`` and then ``require``\s individual subclass
 modules (for example ``Debian::Debhelper::Buildsystem::meson``) directly,
-bypassing ``Dh_Lib`` entirely.
+bypassing ``Dh_Lib`` entirely. Sorted.
 
 Detection works by:
 
@@ -115,6 +116,6 @@ Error handling
 - If Perl modules are not installed, ``perlthon.eval()`` raises a Python
   exception wrapping the Perl error.
 - pydebian uses lazy loading (``_ensure_loaded()``) so import-time failures
-  do not occur unless you actually call the functions.
+  don't happen unless you actually call the functions.
 - ``get_sequence()`` uses ``subprocess`` (calling ``dh_assistant``) as a
   fallback mechanism independent of perlthon.

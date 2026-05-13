@@ -2,7 +2,7 @@ Query Ubuntu release support status
 ====================================
 
 This guide shows you how to determine which Ubuntu releases are currently
-supported, which are in ESM, and whether a specific release is receiving
+supported, which are in ESM, and whether a specific release is still getting
 updates.
 
 List supported releases
@@ -21,7 +21,7 @@ Create an ``UbuntuDistroInfo`` instance and call ``supported()``:
 List releases in ESM
 --------------------
 
-Releases that have passed their standard EOL date but still receive security
+Releases that have klapped their standard EOL date but still receive security
 updates under Extended Security Maintenance:
 
 .. code-block:: python
@@ -43,7 +43,7 @@ To classify a release by its current support status:
    elif codename in ubuntu.supported_esm():
        print(f"{codename} is in ESM")
    elif ubuntu.valid(codename):
-       print(f"{codename} is EOL")
+       print(f"{codename} is EOL — dis klaar")
    else:
        print(f"{codename} is not a known Ubuntu release")
 
@@ -66,4 +66,4 @@ Get a version number for a codename
 
    The underlying data comes from ``/usr/share/distro-info/ubuntu.csv``,
    maintained by the ``distro-info-data`` package. Keep this package updated
-   for accurate results.
+   for accurate results, otherwise you'll be working with ou data.

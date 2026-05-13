@@ -2,8 +2,8 @@ Why wrap Perl?
 ==============
 
 pydebian takes the unusual approach of embedding Perl inside Python rather than
-reimplementing the Debian tooling logic in pure Python. This is a deliberate
-design choice.
+reimplementing the Debian tooling logic in pure Python. This might sound a bit
+dof, but it's actually a deliberate design choice — and here's why.
 
 The problem with reimplementation
 ---------------------------------
@@ -21,12 +21,13 @@ Perl. This includes:
 Reimplementing any of these in Python means:
 
 #. **Behaviour drift** — subtle differences accumulate over time as the Perl
-   modules evolve and the Python copy does not track changes.
+   modules evolve and the Python copy doesn't track changes. Before you know
+   it, you've got two slightly different versions of the truth.
 #. **Testing burden** — you need to replicate the full test suite of the
-   upstream Perl modules.
+   upstream Perl modules. That's a lot of braaiing to do twice.
 #. **Bug-for-bug compatibility** — tools in the Debian ecosystem expect the
-   exact behaviour of the Perl implementations. "Almost the same" is not good
-   enough.
+   exact behaviour of the Perl implementations. "Almost the same" doesn't
+   cut it when your build is breaking at 2am.
 
 The wrapping approach
 ---------------------
@@ -34,9 +35,9 @@ The wrapping approach
 By embedding Perl and calling the implementations directly:
 
 - **100% behavioural compatibility** — by definition, you get the same answers
-  as the Perl tools because you are running the same code.
+  as the Perl tools because you're running the same code. Same same.
 - **Zero maintenance burden** — when ``debhelper`` or ``distro-info-data`` gets
-  a new release, pydebian automatically picks up the changes (they are loaded
+  a new release, pydebian automatically picks up the changes (they're loaded
   from the installed Perl modules).
 - **No re-testing needed** — the upstream modules are already tested. pydebian
   only needs to test its own marshalling layer.
@@ -44,7 +45,7 @@ By embedding Perl and calling the implementations directly:
 Trade-offs
 ----------
 
-This approach is not free:
+This approach isn't free — there's always a cost, né:
 
 .. list-table::
    :header-rows: 1
@@ -72,7 +73,7 @@ Wrapping is the right choice when:
 - The system packages are readily available in your deployment environment.
 
 For Debian packaging tools — which are overwhelmingly Perl, deeply complex,
-and always available on Debian/Ubuntu systems — wrapping is an excellent fit.
+and always available on Debian/Ubuntu systems — wrapping is a lekker fit.
 
 When to reimplement instead
 ---------------------------
@@ -83,4 +84,4 @@ Reimplementation makes more sense when:
   or Windows).
 - Performance is critical (millions of calls per second).
 - The logic is simple enough to be trivially correct.
-- You need to extend or modify the behaviour.
+- You need to extend or modify the behaviour beyond what upstream provides.

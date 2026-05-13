@@ -2,7 +2,7 @@ Determine whether a release is LTS
 ====================================
 
 This guide shows you how to check whether a given Ubuntu or Debian release is
-an LTS release, and how to find the current LTS release.
+an LTS release, and how to find the current LTS.
 
 Check whether an Ubuntu release is LTS
 ---------------------------------------
@@ -13,8 +13,8 @@ Check whether an Ubuntu release is LTS
 
    ubuntu = UbuntuDistroInfo()
 
-   ubuntu.is_lts("noble")     # True
-   ubuntu.is_lts("oracular")  # False
+   ubuntu.is_lts("noble")     # True — ja, it's LTS
+   ubuntu.is_lts("oracular")  # False — nope, just a regular release
 
 Get the current Ubuntu LTS release
 ------------------------------------
@@ -26,8 +26,8 @@ Get the current Ubuntu LTS release
 Get Debian releases in LTS support
 ------------------------------------
 
-Debian does not flag releases as "LTS" in the same way. Instead, you query
-which releases are currently receiving LTS support:
+Debian doesn't flag releases as "LTS" in the same way as Ubuntu. Instead, you
+query which releases are currently receiving LTS support:
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ For Extended LTS (ELTS):
 Classify a release by support tier
 ------------------------------------
 
-Combine multiple queries to determine a release's current support tier:
+Combine multiple queries to work out where a release sits:
 
 .. code-block:: python
 
@@ -59,10 +59,10 @@ Combine multiple queries to determine a release's current support tier:
 
    if codename in ubuntu.supported():
        if ubuntu.is_lts(codename):
-           print(f"{codename} is a supported LTS release")
+           print(f"{codename} is a supported LTS release — still lekker")
        else:
            print(f"{codename} is supported (non-LTS)")
    elif codename in ubuntu.supported_esm():
        print(f"{codename} is in ESM")
    else:
-       print(f"{codename} is EOL")
+       print(f"{codename} is EOL — time to move on, bru")

@@ -1,10 +1,10 @@
 Tutorials
 =========
 
-If you are new to pydebian, start here.
+If you're new to pydebian, start here, boet.
 
 These tutorials introduce you to the core concepts through hands-on examples.
-They give you enough understanding to start exploring on your own.
+They'll give you enough understanding to braai your own path forward.
 
 .. toctree::
    :maxdepth: 1

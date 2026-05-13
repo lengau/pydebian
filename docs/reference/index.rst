@@ -2,7 +2,7 @@ Reference
 =========
 
 Technical reference for the pydebian API. These pages describe every public
-class and function.
+class and function in full detail.
 
 For a conceptual overview, see :doc:`../explanation/index`.
 
