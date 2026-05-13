@@ -97,3 +97,23 @@ needed for loading, and `chdir()` before any Perl calls.
 4. Phase 5 (system management) — niche but completes coverage
 5. Phase 6 (KDE) — specialist, depends on pkg-kde-tools
 6. Phase 7 (cross-compilation) — niche
+
+## Testing strategy
+
+Each phase includes integration tests after all modules in that phase are
+implemented:
+
+- **Cross-validation**: compare pydebian output against CLI tools (e.g.
+  `distro-info --supported`, `dpkg -S`, `dh_assistant`)
+- **Real data**: parse actual system files (`/usr/share/doc/*/copyright`,
+  installed `debian/control` files, `/usr/share/distro-info/*.csv`)
+- **Round-trip**: parse → modify → write → parse again, verify consistency
+- **Edge cases**: malformed input, missing files, empty fields
+
+After all phases are complete, a **spread test suite** runs the full test
+matrix across:
+
+- Ubuntu 24.04, 24.10, 25.04
+- Debian 12
+
+Using an LXD VM adhoc backend (same pattern as pydpkg).
