@@ -38,20 +38,14 @@ class _DistroInfoBase:
 
     def __init__(self) -> None:
         self._instance_id = id(self)
-        perlthon.eval(
-            f"$_distroinfo_{self._instance_id} = {self._perl_class}->new()"
-        )
+        perlthon.eval(f"$_distroinfo_{self._instance_id} = {self._perl_class}->new()")
 
     def _call(self, method: str, *args: str) -> object:
         args_str = ", ".join(f"'{a}'" for a in args) if args else ""
-        return perlthon.eval(
-            f"$_distroinfo_{self._instance_id}->{method}({args_str})"
-        )
+        return perlthon.eval(f"$_distroinfo_{self._instance_id}->{method}({args_str})")
 
     def _call_list(self, method: str) -> list[str]:
-        result = perlthon.eval(
-            f"[$_distroinfo_{self._instance_id}->{method}()]"
-        )
+        result = perlthon.eval(f"[$_distroinfo_{self._instance_id}->{method}()]")
         if result:
             assert isinstance(result, list)
             return [str(s) for s in result]

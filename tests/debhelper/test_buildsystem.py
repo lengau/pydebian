@@ -1,6 +1,5 @@
 """Tests for pydebian.debhelper build system detection."""
 
-
 import pytest
 
 from pydebian.debhelper import (

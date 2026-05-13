@@ -6,8 +6,13 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,23 +21,26 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install dependencies
+      - name: Install tools
         run: pip install ruff mypy
 
-      - name: Run ruff check
+      - name: ruff check
         run: ruff check src/ tests/
 
-      - name: Run ruff format check
+      - name: ruff format
         run: ruff format --check src/ tests/
 
-      - name: Run mypy
+      - name: mypy
         run: mypy
 
   test:
-    runs-on: ubuntu-latest
+    name: Test (Python ${{ matrix.python-version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         python-version: ["3.12", "3.13"]
+        os: [ubuntu-latest, ubuntu-24.04]
     steps:
       - uses: actions/checkout@v4
 
@@ -45,8 +53,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y debhelper libdistro-info-perl distro-info-data libperl-dev
 
-      - name: Install Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
+      - uses: dtolnay/rust-toolchain@stable
 
       - name: Install perlthon
         run: pip install perlthon
@@ -54,5 +61,56 @@ jobs:
       - name: Install package
         run: pip install -e ".[dev]"
 
-      - name: Run tests
-        run: pytest --cov=pydebian --cov-report=term-missing
+      - name: Run tests with coverage
+        run: pytest --cov=pydebian --cov-report=xml --cov-report=term-missing --cov-fail-under=80
+
+      - name: Upload coverage
+        if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+
+  docs:
+    name: Docs build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install sphinx furo sphinx-design
+
+      - name: Build docs (warnings as errors)
+        run: sphinx-build -W --keep-going docs docs/_build
+
+      - name: Check for broken links
+        run: sphinx-build -b linkcheck docs docs/_build/linkcheck
+
+  build-package:
+    name: Build package
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tools
+        run: pip install build twine
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Check package metadata
+        run: twine check dist/*
+
+      - name: Upload built packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/

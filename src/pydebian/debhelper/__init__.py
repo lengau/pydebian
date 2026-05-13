@@ -91,11 +91,13 @@ def list_buildsystems() -> list[BuildSystem]:
     assert isinstance(result, list)
     for s in result:
         assert isinstance(s, dict)
-        systems.append(BuildSystem(
-            name=str(s["name"]),
-            description=str(s["description"]),
-            is_generator=bool(s["is_generator"]),
-        ))
+        systems.append(
+            BuildSystem(
+                name=str(s["name"]),
+                description=str(s["description"]),
+                is_generator=bool(s["is_generator"]),
+            )
+        )
     return systems
 
 
@@ -216,9 +218,16 @@ def get_sequence(target: str, source_dir: str | Path | None = None) -> list[str]
     import subprocess
 
     valid_targets = (
-        "binary", "binary-arch", "binary-indep",
-        "build", "build-arch", "build-indep",
-        "clean", "install", "install-arch", "install-indep",
+        "binary",
+        "binary-arch",
+        "binary-indep",
+        "build",
+        "build-arch",
+        "build-indep",
+        "clean",
+        "install",
+        "install-arch",
+        "install-indep",
     )
     if target not in valid_targets:
         raise ValueError(f"Invalid target {target!r}, must be one of {valid_targets}")
